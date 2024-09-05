@@ -1,0 +1,51 @@
+/* NAVBAR SCSS */
+
+.Navbar {
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  padding: 24px 32px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar__logo {
+  color: #DFDFF2;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar__live-stream {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-items {
+  display: flex;
+  gap: 24px;
+  position: relative;
+  left: -100px;
+}
+
+.navbar__dropdown-arrow {
+  margin-left: 4px;
+}
+
+.hovered {
+  background-color: #DFDFF2;
+  color: black;
+}
+
+.navbar__volume-control {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #DFDFF2; /* Match with your theme */
+  margin-left: 16px;
+}

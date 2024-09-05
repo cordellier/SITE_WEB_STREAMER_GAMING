@@ -1,0 +1,75 @@
+/* SOCIAL ICONS SCSS */
+
+.social-icons {
+  position: absolute;
+  bottom: -120px;
+  right: 0px;
+  display: flex;
+  gap: 15px;
+
+  .icon-list {
+    display: flex; 
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .icon-item {
+    list-style: none;
+  }
+
+  .icon-link {  
+    display: inline-flex;
+    font-size: 3rem;  
+    text-decoration: none;  
+    color: var(--color-icon);
+    width: 6rem;
+    height: 6rem;   
+    transition: .5s linear;
+    position: relative;
+    z-index: 1;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      color: #fff;
+    }
+
+    i {
+      font-size: 2.5rem;
+    }
+
+    &::before {  
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 6rem;
+      height: 6rem;
+      background: #000;
+      border-radius: 50%;
+      z-index: -1;
+      transform: scale(0);
+      transition: 0.3s cubic-bezier(.95, .32, .37, 1.21);
+    }
+    
+    &:hover::before {  
+      transform: scale(1);
+    }
+  }
+
+  .icon-item:nth-child(1) a:hover::before { 
+    background: var(--twitter-color); 
+  }
+
+  .icon-item:nth-child(2) a:hover::before { 
+    background: var(--twitch-color); 
+  }
+
+  .icon-item:nth-child(3) a:hover::before { 
+    background: var(--youtube-color); 
+  }
+}

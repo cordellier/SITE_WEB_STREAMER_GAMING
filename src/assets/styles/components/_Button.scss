@@ -1,0 +1,20 @@
+.button {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action {
+  background-color: #F1FF7E;
+  color: black;
+}
+
+.action:hover {
+  background-color: black;
+  color: white;
+}
