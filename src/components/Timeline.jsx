@@ -6,61 +6,43 @@ const Timeline = () => {
   const timelineRef = useRef(null);
   const [activePeriodIndex, activeCardIndex] = useTimeline(timelineRef);
 
-  const periods = [
+  const timelineData = [
     { year: "2018-2019", title: "Débuts sur Twitch", description: "Lancement de ma chaîne Twitch et premiers streams réguliers." },
     { year: "2020-2021", title: "Croissance de la communauté", description: "Expansion de la communauté et diversification du contenu." },
     { year: "2022-Présent", title: "Collaborations et événements", description: "Partenariats avec d'autres streamers et organisation d'événements communautaires." }
   ];
 
-  const cards = [
-    { year: "2018", title: "Premier stream", content: "Mon tout premier stream sur Twitch, jouant à mon jeu favori devant une poignée de spectateurs." },
-    { year: "2020", title: "1000 followers", content: "Célébration de mon 1000ème follower avec un stream spécial de 12 heures." },
-    { year: "2022", title: "Premier événement communautaire", content: "Organisation du premier tournoi en ligne pour ma communauté, avec des prix sponsorisés." }
-  ];
-
   return (
-    <div className="pres-timeline" id="drunge-timeline" ref={timelineRef}>
-      <div className="periods-container">
-        {periods.map((period, index) => (
-          <section key={index} className={`period-single ${index === activePeriodIndex ? 'active' : ''}`} period={`period${index + 1}`}>
-            <h4 className="year">{period.year}</h4>
-            <h2 className="title">{period.title}</h2>
-            <p>{period.description}</p>
-          </section>
-        ))}
-      </div>
-      <div className="timeline-container">
-        <div className="timeline">
-          <ol>
-            {periods.map((_, index) => (
-              <li key={index} period={`period${index + 1}`} className={index === activeCardIndex ? 'active' : ''}></li>
+    <div className="timeline-container">
+      <div className="timeline" ref={timelineRef}>
+        <div className="timeline-header">
+          <h2>{timelineData[activePeriodIndex].year}</h2>
+          <h1>{timelineData[activePeriodIndex].title}</h1>
+          <p>{timelineData[activePeriodIndex].description}</p>
+        </div>
+        <div className="timeline-content">
+          <div className="timeline-line">
+            {timelineData.map((item, index) => (
+              <button
+                key={item.year}
+                className={`timeline-point ${index === activePeriodIndex ? 'active' : ''}`}
+                onClick={() => {/* Ajoutez ici la logique pour changer l'index actif */ }}
+              />
             ))}
-          </ol>
+          </div>
+          <div className="timeline-cards">
+            {timelineData.map((item, index) => (
+              <div
+                key={item.year}
+                className={`timeline-card ${index === activeCardIndex ? 'active' : ''}`}
+              >
+                <h3>{item.year}</h3>
+                <h4>{item.title}</h4>
+                <p>{item.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="btn-back">
-          <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-            <path fill="none" d="M0 0h30v30H0z"/>
-            <path fill="#D8D8D8" fillRule="evenodd" d="M11.828 15l7.89-7.89-2.83-2.828L6.283 14.89l.11.11-.11.11L16.89 25.72l2.828-2.83"/>
-          </svg>
-        </div>
-        <div className="btn-next">
-          <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-            <path fill="none" d="M0 0h30v30H0z"/>
-            <path fill="#D8D8D8" fillRule="evenodd" d="M18.172 14.718l-7.89-7.89L13.112 4l10.606 10.607-.11.11.11.11-10.608 10.61-2.828-2.83 7.89-7.89"/>
-          </svg>
-        </div>
-      </div>
-      <div className="cards-container">
-        {cards.map((card, index) => (
-          <section key={index} className={`card-single ${index === activeCardIndex ? 'active' : ''}`} period={`period${index + 1}`}>
-            <h4 className="year">{card.year}</h4>
-            <h2 className="title">{card.title}</h2>
-            <div className="content">
-              <img src={`/api/placeholder/400/300?text=${card.title}`} alt={card.title} />
-              <p>{card.content}</p>
-            </div>
-          </section>
-        ))}
       </div>
     </div>
   );

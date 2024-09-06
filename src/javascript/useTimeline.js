@@ -8,67 +8,44 @@ const useTimeline = (timelineRef) => {
     const timeline = timelineRef.current;
     if (!timeline) return;
 
-    const periods = timeline.querySelectorAll(".periods-container section");
-    const cards = timeline.querySelectorAll(".cards-container section");
-    const timelineItems = timeline.querySelectorAll(".timeline ol li");
+    const timelinePoints = timeline.querySelectorAll(".timeline-point");
+    const timelineCards = timeline.querySelectorAll(".timeline-card");
 
     const setActiveStates = () => {
-      periods.forEach((period, index) => {
-        period.classList.toggle("active", index === activePeriodIndex);
-        period.classList.toggle("prev", index === activePeriodIndex - 1);
-        period.classList.toggle("next", index === activePeriodIndex + 1);
+      timelinePoints.forEach((point, index) => {
+        point.classList.toggle("active", index === activePeriodIndex);
       });
 
-      cards.forEach((card, index) => {
+      timelineCards.forEach((card, index) => {
         card.classList.toggle("active", index === activeCardIndex);
-        card.classList.toggle("prev", index === activeCardIndex - 1);
-        card.classList.toggle("next", index === activeCardIndex + 1);
-      });
-
-      timelineItems.forEach((item, index) => {
-        item.classList.toggle("active", index === activeCardIndex);
       });
     };
 
-    const handlePeriodClick = (index) => {
+    const handlePointClick = (index) => {
       setActivePeriodIndex(index);
       setActiveCardIndex(index);
     };
 
-    const handleCardClick = (index) => {
-      setActiveCardIndex(index);
-      setActivePeriodIndex(index);
-    };
-
-    periods.forEach((period, index) => {
-      period.addEventListener("click", () => handlePeriodClick(index));
-    });
-
-    cards.forEach((card, index) => {
-      card.addEventListener("click", () => handleCardClick(index));
-    });
-
-    timelineItems.forEach((item, index) => {
-      item.addEventListener("click", () => handleCardClick(index));
+    timelinePoints.forEach((point, index) => {
+      point.addEventListener("click", () => handlePointClick(index));
     });
 
     setActiveStates();
 
     return () => {
       // Cleanup event listeners
-      periods.forEach((period, index) => {
-        period.removeEventListener("click", () => handlePeriodClick(index));
-      });
-      cards.forEach((card, index) => {
-        card.removeEventListener("click", () => handleCardClick(index));
-      });
-      timelineItems.forEach((item, index) => {
-        item.removeEventListener("click", () => handleCardClick(index));
+      timelinePoints.forEach((point, index) => {
+        point.removeEventListener("click", () => handlePointClick(index));
       });
     };
   }, [timelineRef, activePeriodIndex, activeCardIndex]);
 
-  return [activePeriodIndex, activeCardIndex];
+  return [
+    activePeriodIndex,
+    activeCardIndex,
+    setActivePeriodIndex,
+    setActiveCardIndex,
+  ];
 };
 
 export default useTimeline;

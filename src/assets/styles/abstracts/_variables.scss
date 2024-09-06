@@ -3,9 +3,10 @@ $z-index-navbar: 1000;
 $z-index-background: -1;
 
 // Colors
-$primary-color: #DEDFF3;
+$primary-color: hsl(237, 47%, 91%);
 $text-color: #ffffff;
 $background-color: #000000;
+$background-color-contentblock : #4169E1;
 
 // Social media colors
 $twitter-color: #1DA1F2;
@@ -22,3 +23,17 @@ $breakpoint-small: 576px;
 $breakpoint-medium: 768px;
 $breakpoint-large: 992px;
 $breakpoint-xlarge: 1200px;
+
+
+// colors Timeline
+$primary: #fc5a7d;
+$secondary: #7d6dfb;
+$dark: #18294f;
+$timeline-1: #fec541;
+$timeline-2: #36d484;
+$timeline-3: #32ccf4;
+$timeline-4: #fd9252;
+$bg-mild: #f5f7f6;
+$bg-reg: #dfe3e6;
+$bg-dark: #7f9298;
+$text-black: #4A4A4A;
