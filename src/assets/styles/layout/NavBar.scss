@@ -27,9 +27,9 @@
 
 .nav-items {
   display: flex;
-  gap: 24px;
+  gap: 12px;
   position: relative;
-  left: -100px;
+  left: 0px;
 }
 
 .navbar__dropdown-arrow {
@@ -46,6 +46,35 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #DFDFF2; /* Match with your theme */
+  color: #DFDFF2;
   margin-left: 16px;
+}
+
+// Styles spécifiques pour les pages About et Contact
+.about-page, .contact-page {
+  .nav1 {
+    background-color: black;
+    color: white;
+
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+  }
+
+  .nav-items {
+    .navbar__item {
+      color: black;
+
+      &.hovered,
+      &:hover {
+        background-color: black;
+        color: white;
+      }
+    }
+  }
+
+  .navbar__volume-control {
+    color: black;
+  }
 }

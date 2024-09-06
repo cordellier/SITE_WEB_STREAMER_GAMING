@@ -3,7 +3,7 @@ import '.././src/assets/styles/pages/App.scss';
 import Navbar from '../src/components/Navbar';
 import Header from '../src/layout/Header';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import About from '../src/pages/About';
+import About from './pages/About';
 
 function App() {
   return (

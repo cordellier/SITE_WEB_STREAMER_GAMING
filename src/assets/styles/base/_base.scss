@@ -1,5 +1,9 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: $background-color;
-    color: $text-color;
-  }
+  font-family: Arial, sans-serif;
+  background-color: $background-color;
+  color: $text-color;
+  -webkit-user-select: none;
+  -moz-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;     
+}
