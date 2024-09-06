@@ -7,7 +7,7 @@ const Timeline = () => {
   const [activePeriodIndex, activeCardIndex] = useTimeline(timelineRef);
 
   const timelineData = [
-    { year: "2018-2019", title: "Débuts sur Twitch", description: "Lancement de ma chaîne Twitch et premiers streams réguliers." },
+    { year: "Naissance", title: "Débuts sur Twitch", description: "Lancement de ma chaîne Twitch et premiers streams réguliers." },
     { year: "2020-2021", title: "Croissance de la communauté", description: "Expansion de la communauté et diversification du contenu." },
     { year: "2022-Présent", title: "Collaborations et événements", description: "Partenariats avec d'autres streamers et organisation d'événements communautaires." }
   ];
@@ -16,9 +16,9 @@ const Timeline = () => {
     <div className="timeline-container">
       <div className="timeline" ref={timelineRef}>
         <div className="timeline-header">
-          <h2>{timelineData[activePeriodIndex].year}</h2>
-          <h1>{timelineData[activePeriodIndex].title}</h1>
-          <p>{timelineData[activePeriodIndex].description}</p>
+          <h2>Chronologie de drunge</h2>
+          <h1>Des premiers pas jusqu'à l'ère Twitch</h1>
+          <p>Découvrez les moments clés qui ont façonné mon parcours.</p>
         </div>
         <div className="timeline-content">
           <div className="timeline-line">
