@@ -11,14 +11,14 @@
 
 // Components
 @import './components/button';
-@import './components/_ContentBlock.scss';
+@import './components/_ContentBlock';
 @import './components/_Timeline';
 
 // Layout
 @import './layout/NavBar';
-@import './layout/Header.scss';
+@import './layout/Header';
 @import './layout/SocialIcons';
 
 // Pages
-@import './pages/App.scss';
-@import './pages/TwitchStream.scss';
+@import './pages/App';
+@import './pages/TwitchStream';
