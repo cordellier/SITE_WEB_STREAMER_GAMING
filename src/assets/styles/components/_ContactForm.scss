@@ -14,9 +14,11 @@
     .contact-form-container {
       background-color: white;
       width: 33.33%;
-      height: 100%;
+      margin-top: -150px;
+      margin-right: 80px;
+      height: 600px;
       padding: 2rem;
-      border-radius: 15px 0 0 15px;
+      border-radius: 15px 15px 15px 15px;
       box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
       overflow-y: auto;
   
@@ -26,11 +28,12 @@
   
       .close-button {
         position: absolute;
-        top: 1rem;
-        right: 1rem;
+        top: 50px;
+        right: 675px;
+        margin-top: 50px;
         background: none;
         border: none;
-        font-size: 1.5rem;
+        font-size: 2rem;
         cursor: pointer;
       }
   
