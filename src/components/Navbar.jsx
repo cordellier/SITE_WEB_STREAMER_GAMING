@@ -52,6 +52,11 @@ const Navbar = () => {
     navigate("/");
   };
 
+  const handleLiveStreamClick = () => {
+    handleClick();
+    navigate("/live-stream");
+  };
+
   return (
     <nav className={`Navbar ${isSpecialPage ? (location.pathname === '/about' ? 'about-page' : 'contact-page') : ''}`}>
       <div className="nav">
@@ -65,7 +70,7 @@ const Navbar = () => {
         <div className="navbar__live-stream">
           <Button
             variant="nav1"
-            onClick={handleClick}
+            onClick={handleLiveStreamClick}
             onMouseEnter={() => !isMuted && hoverAudio.play()}
           >
             ▶ Live Stream

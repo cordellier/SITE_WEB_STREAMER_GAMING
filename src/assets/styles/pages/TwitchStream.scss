@@ -1,0 +1,31 @@
+// TwitchStreamPage.scss
+
+.twitch-stream-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: $background-stream;
+  
+    .stream-container {
+      margin-right: 20px;
+      margin-top: 150px;
+      margin-bottom: 240px;
+    }
+  
+    .chat-container {
+      width: 350px;
+      margin-top: 150px;
+    }
+  
+    @media (max-width: 1200px) {
+      flex-direction: column;
+      align-items: center;
+  
+      .stream-container {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+
+    }
+  }

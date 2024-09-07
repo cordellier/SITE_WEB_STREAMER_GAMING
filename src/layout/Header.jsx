@@ -17,6 +17,7 @@ const Hero = () => {
             ▶ WATCH TRAILER
           </Button>
           <div className="hero-gaming">
+            <h3>Streamer</h3>
             <h1>GAMING</h1>
             <SocialIcons />
           </div>

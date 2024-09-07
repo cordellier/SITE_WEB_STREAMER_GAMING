@@ -23,7 +23,7 @@
     display: inline-flex;
     font-size: 3rem;  
     text-decoration: none;  
-    color: var(--color-icon);
+    color: $color-icon;
     width: 6rem;
     height: 6rem;   
     transition: .5s linear;
@@ -34,7 +34,7 @@
     justify-content: center;
 
     &:hover {
-      color: #fff;
+      color: $text-color;
     }
 
     i {
@@ -63,14 +63,14 @@
   }
 
   .icon-item:nth-child(1) a:hover::before { 
-    background: var(--twitter-color); 
+    background: $twitter-color; 
   }
 
   .icon-item:nth-child(2) a:hover::before { 
-    background: var(--twitch-color); 
+    background: $twitch-color; 
   }
 
   .icon-item:nth-child(3) a:hover::before { 
-    background: var(--youtube-color); 
+    background: $youtube-color; 
   }
 }
