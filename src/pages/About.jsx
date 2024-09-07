@@ -1,6 +1,7 @@
 import ContentBlock from '../components/ContentBlock';
 import Timeline from '../components/Timeline';
 import PhotoDrunge from '../assets/images/Drunge_aventurier.jpg';
+import SocialIcons from '../components/SocialIcons';
 
 const About = () => {
   return (
@@ -13,6 +14,7 @@ const About = () => {
         description="De joueur passionné à créateur de communautés, mon aventure sur Twitch est une quête où chaque victoire est la nôtre. Rejoignez-moi dans cette épopée pour redéfinir le jeu ensemble."
       />
       <Timeline />
+      <SocialIcons />
     </div>
   );
 };

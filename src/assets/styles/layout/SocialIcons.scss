@@ -1,11 +1,12 @@
 /* SOCIAL ICONS SCSS */
 
 .social-icons {
-  position: absolute;
-  bottom: -120px;
-  right: 0px;
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
   display: flex;
   gap: 15px;
+  z-index: 1000;
 
   .icon-list {
     display: flex; 
