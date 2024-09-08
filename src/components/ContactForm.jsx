@@ -57,7 +57,7 @@ const ContactForm = ({ isOpen, onClose }) => {
 
   const sendEmail = async () => {
     try {
-      const response = await fetch('/api/send-email', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,9 +67,11 @@ const ContactForm = ({ isOpen, onClose }) => {
       if (!response.ok) {
         throw new Error('Erreur lors de l\'envoi de l\'email');
       }
+      setIsSubmitted(true);
+      setSubmitError(null);
     } catch (error) {
       console.error('Erreur:', error);
-      // Gérer l'erreur (par exemple, afficher un message à l'utilisateur)
+      setSubmitError("Une erreur est survenue lors de l'envoi de l'email. Veuillez réessayer.");
     }
   };
 
