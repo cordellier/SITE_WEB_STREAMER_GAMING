@@ -55,19 +55,21 @@ const ContactForm = ({ isOpen, onClose }) => {
     e.preventDefault();
     if (validateForm()) {
       console.log('Formulaire soumis:', formData);
-      closeSoundEffect.current.play();
+      closeSoundEffect.current.play(); // Son de clic lors de la soumission
       setIsSubmitted(true);
-      setTimeout(() => handleClose(), closeSoundEffect.current.duration * 2000 + 2000);
+      setTimeout(() => {
+        handleClose();
+      }, closeSoundEffect.current.duration * 1000 + 1500);
     }
   };
 
   const handleClose = () => {
-    closeSoundEffect.current.play();
+    sendSoundEffect.current.play(); // Son d'envoi lors de la fermeture
     setIsClosing(true);
     setTimeout(() => {
       onClose();
       resetForm();
-    }, 300);
+    }, sendSoundEffect.current.duration * 1000);
   };
 
   const playHoverSound = () => {
