@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import closeSound from '../assets/sounds/clik_3_button.mp3';
 import sendSound from '../assets/sounds/envoi_email.mp3';
 import hoverSound from '../assets/sounds/hover_4_button.mp3';
@@ -8,6 +9,7 @@ const ContactForm = ({ isOpen, onClose }) => {
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [submitError, setSubmitError] = useState(null); // Définir l'état pour les erreurs d'envoi
 
   const closeSoundEffect = useRef(new Audio(closeSound));
   const sendSoundEffect = useRef(new Audio(sendSound));
@@ -29,6 +31,7 @@ const ContactForm = ({ isOpen, onClose }) => {
     setFormData({ name: '', email: '', message: '' });
     setErrors({});
     setIsSubmitted(false);
+    setSubmitError(null); // Réinitialiser l'erreur d'envoi
   };
 
   const validateForm = () => {
@@ -164,9 +167,15 @@ const ContactForm = ({ isOpen, onClose }) => {
             </button>
           </form>
         )}
+        {submitError && <div className="error-message">{submitError}</div>} {/* Afficher les erreurs d'envoi */}
       </div>
     </div>
   );
+};
+
+ContactForm.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default ContactForm;

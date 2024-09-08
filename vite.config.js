@@ -1,16 +1,16 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
-import { config } from "dotenv";
 
 // Charger les variables d'environnement
+import { config } from "dotenv";
 config();
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@styles": path.resolve(__dirname, "src/assets/styles"),
+      "@styles": path.resolve("./src/assets/styles"), // Utiliser un chemin relatif
     },
   },
   css: {
@@ -26,7 +26,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: process.env.VITE_BACKEND_URL || "http://localhost:5000", // Utiliser la variable d'environnement ou valeur par défaut
+        target: import.meta.env.VITE_BACKEND_URL || "http://localhost:5000", // Utiliser import.meta.env
         changeOrigin: true,
         secure: false,
       },
