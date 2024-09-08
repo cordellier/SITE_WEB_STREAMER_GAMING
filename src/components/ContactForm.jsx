@@ -13,7 +13,6 @@ const ContactForm = ({ isOpen, onClose }) => {
   const sendSoundEffect = useRef(new Audio(sendSound));
   const hoverSoundEffect = useRef(new Audio(hoverSound));
 
-  // Réduire le volume du son d'envoi d'un tiers
   sendSoundEffect.current.volume = 0.4;
 
   useEffect(() => {
@@ -55,21 +54,25 @@ const ContactForm = ({ isOpen, onClose }) => {
     e.preventDefault();
     if (validateForm()) {
       console.log('Formulaire soumis:', formData);
-      closeSoundEffect.current.play(); // Son de clic lors de la soumission
+      closeSoundEffect.current.play();
       setIsSubmitted(true);
       setTimeout(() => {
-        handleClose();
+        handleClose('submit');
       }, closeSoundEffect.current.duration * 1000 + 1500);
     }
   };
 
-  const handleClose = () => {
-    sendSoundEffect.current.play(); // Son d'envoi lors de la fermeture
+  const handleClose = (closeType = 'manual') => {
+    if (closeType === 'submit') {
+      sendSoundEffect.current.play();
+    } else {
+      closeSoundEffect.current.play();
+    }
     setIsClosing(true);
     setTimeout(() => {
       onClose();
       resetForm();
-    }, sendSoundEffect.current.duration * 1000);
+    }, 300);
   };
 
   const playHoverSound = () => {
@@ -84,7 +87,7 @@ const ContactForm = ({ isOpen, onClose }) => {
       <div className="contact-form-container">
         <button 
           className="close-button" 
-          onClick={handleClose}
+          onClick={() => handleClose('manual')}
           onMouseEnter={playHoverSound}
         >
           &times;
