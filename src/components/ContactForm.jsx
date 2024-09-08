@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import closeSound from '../assets/sounds/clik_3_button.mp3';
 import sendSound from '../assets/sounds/envoi_email.mp3';
 import hoverSound from '../assets/sounds/hover_4_button.mp3';
@@ -33,13 +33,18 @@ const ContactForm = ({ isOpen, onClose }) => {
 
   const validateForm = () => {
     let tempErrors = {};
-    if (!formData.name.trim()) tempErrors.name = "Le nom est requis";
-    if (!formData.email.trim()) {
-      tempErrors.email = "L'email est requis";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      tempErrors.email = "L'email est invalide";
+    const nameRegex = /^[a-zA-Z\s]{2,30}$/;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+    if (!formData.name.trim() || !nameRegex.test(formData.name.trim())) {
+      tempErrors.name = "Le nom doit contenir entre 2 et 30 caractères alphabétiques";
     }
-    if (!formData.message.trim()) tempErrors.message = "Le message est requis";
+    if (!formData.email.trim() || !emailRegex.test(formData.email.trim())) {
+      tempErrors.email = "Veuillez entrer une adresse email valide";
+    }
+    if (!formData.message.trim() || formData.message.trim().length < 10) {
+      tempErrors.message = "Le message doit contenir au moins 10 caractères";
+    }
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
@@ -50,11 +55,29 @@ const ContactForm = ({ isOpen, onClose }) => {
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
   };
 
-  const handleSubmit = (e) => {
+  const sendEmail = async () => {
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'envoi de l\'email');
+      }
+    } catch (error) {
+      console.error('Erreur:', error);
+      // Gérer l'erreur (par exemple, afficher un message à l'utilisateur)
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log('Formulaire soumis:', formData);
       closeSoundEffect.current.play();
+      await sendEmail();
       setIsSubmitted(true);
       setTimeout(() => {
         handleClose('submit');
