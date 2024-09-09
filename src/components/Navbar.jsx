@@ -1,18 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Button from "./Button";
 import "../assets/styles/components/_NavBar.scss";
-import hoverSound from "../assets/sounds/hover_4_button.mp3";
-import clickSound from "../assets/sounds/clik_3_button.mp3";
+import hoverSoundSrc from "../assets/sounds/hover_4_button.mp3";
+import clickSoundSrc from "../assets/sounds/clik_3_button.mp3";
 import logo from "../assets/images/Elizabeth_de_Gintama.png";
-import ContactForm from "./ContactForm"; // Ajout de l'import du formulaire de contact
+import ContactForm from "./ContactForm";
 
 const Navbar = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [isMuted, setIsMuted] = useState(false);
-  const [isContactFormOpen, setIsContactFormOpen] = useState(false); // Nouvel état pour le formulaire
+  const [isContactFormOpen, setIsContactFormOpen] = useState(false);
+  const [showScrollNav, setShowScrollNav] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const audioContextRef = useRef(null);
+  const hoverSoundBufferRef = useRef(null);
+  const clickSoundBufferRef = useRef(null);
 
   const isSpecialPage = location.pathname === '/about' || location.pathname === '/contact';
 
@@ -25,14 +31,50 @@ const Navbar = () => {
     { name: "CONTACT", hasDropdown: false, path: "/contact" },
   ];
 
-  const hoverAudio = new Audio(hoverSound);
-  const clickAudio = new Audio(clickSound);
+  useEffect(() => {
+    // Initialisation du contexte audio et chargement des sons
+    audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+
+    const loadSound = async (url) => {
+      const response = await fetch(url);
+      const arrayBuffer = await response.arrayBuffer();
+      return await audioContextRef.current.decodeAudioData(arrayBuffer);
+    };
+
+    Promise.all([
+      loadSound(hoverSoundSrc),
+      loadSound(clickSoundSrc)
+    ]).then(([hoverBuffer, clickBuffer]) => {
+      hoverSoundBufferRef.current = hoverBuffer;
+      clickSoundBufferRef.current = clickBuffer;
+    });
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > 100 && currentScrollY < lastScrollY) {
+        setShowScrollNav(true);
+      } else if (currentScrollY <= 30 || currentScrollY > lastScrollY) {
+        setShowScrollNav(false);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
+  const playSound = (buffer) => {
+    if (!isMuted && audioContextRef.current && buffer) {
+      const source = audioContextRef.current.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioContextRef.current.destination);
+      source.start(0);
+    }
+  };
 
   const handleMouseEnter = (itemName) => {
     setHoveredItem(itemName);
-    if (!isMuted) {
-      hoverAudio.play();
-    }
+    playSound(hoverSoundBufferRef.current);
   };
 
   const handleMouseLeave = () => {
@@ -40,9 +82,7 @@ const Navbar = () => {
   };
 
   const handleClick = () => {
-    if (!isMuted) {
-      clickAudio.play();
-    }
+    playSound(clickSoundBufferRef.current);
   };
 
   const toggleMute = () => {
@@ -59,58 +99,81 @@ const Navbar = () => {
     navigate("/live-stream");
   };
 
-  // Nouvelle fonction pour gérer le clic sur "CONTACT"
   const handleContactClick = (e) => {
     e.preventDefault();
     handleClick();
     setIsContactFormOpen(true);
   };
 
+  const getNavbarClass = () => {
+    if (!isSpecialPage) {
+      return 'navbar';
+    }
+    if (location.pathname === '/about') {
+      return 'navbar about-page';
+    }
+    return 'navbar contact-page';
+  };
+
+
+  const renderNavContent = (isScrollNav = false) => (
+    <div className={`nav ${isScrollNav ? 'scroll-nav' : ''}`}>
+      <button
+        className="navbar__logo"
+        onClick={handleLogoClick}
+        aria-label="Go to homepage"
+      >
+        <img src={logo} alt="Site Logo" />
+      </button>
+      <div className="navbar__live-stream">
+        <Button
+          variant="nav1"
+          onClick={handleLiveStreamClick}
+          onMouseEnter={() => playSound(hoverSoundBufferRef.current)}
+        >
+          ▶ Live Stream
+        </Button>
+      </div>
+      <div className="nav-items">
+        {navItems.map((item) => (
+          <div key={item.name} className="nav-item-wrapper">
+            <Link to={item.path}>
+              <Button
+                variant="nav"
+                onMouseEnter={() => handleMouseEnter(item.name)}
+                onMouseLeave={handleMouseLeave}
+                onClick={item.name === "CONTACT" ? handleContactClick : handleClick}
+                className={`navbar__item ${hoveredItem === item.name ? "hovered" : ""}`}
+              >
+                {item.name}
+                {item.hasDropdown && <span className="navbar__dropdown-arrow">▼</span>}
+              </Button>
+            </Link>
+            {item.hasDropdown && hoveredItem === item.name && (
+              <div className="dropdown-menu">
+                <Link to={`${item.path}/sub-item-1`}>Sub Item 1</Link>
+                <Link to={`${item.path}/sub-item-2`}>Sub Item 2</Link>
+              </div>
+            )}
+          </div>
+        ))}
+        <button className="navbar__volume-control" onClick={toggleMute}>
+          {isMuted ? "🔇" : "🔊"}
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <>
-      <nav className={`Navbar ${isSpecialPage ? (location.pathname === '/about' ? 'about-page' : 'contact-page') : ''}`}>
-        <div className="nav">
-          <button
-            className="navbar__logo"
-            onClick={handleLogoClick}
-            aria-label="Go to homepage"
-          >
-            <img src={logo} alt="Site Logo" />
-          </button>
-          <div className="navbar__live-stream">
-            <Button
-              variant="nav1"
-              onClick={handleLiveStreamClick}
-              onMouseEnter={() => !isMuted && hoverAudio.play()}
-            >
-              ▶ Live Stream
-            </Button>
-          </div>
-          <div className="nav-items">
-            {navItems.map((item) => (
-              <Link to={item.path} key={item.name}>
-                <Button
-                  variant="nav"
-                  onMouseEnter={() => handleMouseEnter(item.name)}
-                  onMouseLeave={handleMouseLeave}
-                  onClick={item.name === "CONTACT" ? handleContactClick : handleClick} // Modification ici
-                  className={`navbar__item ${
-                    hoveredItem === item.name ? "hovered" : ""
-                  }`}
-                >
-                  {item.name}{" "}
-                  {item.hasDropdown && (
-                    <span className="navbar__dropdown-arrow">▼</span>
-                  )}
-                </Button>
-              </Link>
-            ))}
-            <button className="navbar__volume-control" onClick={toggleMute}>
-              {isMuted ? "🔇" : "🔊"}
-            </button>
-          </div>
-        </div>
+      <nav className={getNavbarClass()}>
+        {renderNavContent()}
       </nav>
+      {showScrollNav && (
+        <nav className="navbar scroll-navbar">
+          {renderNavContent(true)}
+        </nav>
+      )}
       <ContactForm isOpen={isContactFormOpen} onClose={() => setIsContactFormOpen(false)} />
     </>
   );
