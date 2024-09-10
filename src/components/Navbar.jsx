@@ -13,6 +13,7 @@ const Navbar = () => {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
   const [showScrollNav, setShowScrollNav] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -23,16 +24,22 @@ const Navbar = () => {
   const isSpecialPage = location.pathname === '/about' || location.pathname === '/contact';
 
   const navItems = [
-    { name: "CALENDRIER", hasDropdown: false, path: "/calendar" },
-    { name: "CRITIQUES", hasDropdown: true, path: "/reviews" },
-    { name: "TOP JEUX", hasDropdown: true, path: "/top-games" },
+    { name: "CRITIQUES", hasDropdown: false, path: "/reviews" },
+    { name: "TOP JEUX", hasDropdown: false, path: "/top-games" },
     { name: "SORTIES ATTENDUES", hasDropdown: false, path: "/upcoming" },
-    { name: "A PROPOS", hasDropdown: false, path: "/about" },
+    { 
+      name: "A PROPOS", 
+      hasDropdown: true, 
+      path: "/about",
+      dropdownItems: [
+        { name: "Setup", path: "/about/setup" },
+        { name: "Collaboration", path: "/about/collaboration" }
+      ]
+    },
     { name: "CONTACT", hasDropdown: false, path: "/contact" },
   ];
 
   useEffect(() => {
-    // Initialisation du contexte audio et chargement des sons
     audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
 
     const loadSound = async (url) => {
@@ -105,6 +112,18 @@ const Navbar = () => {
     setIsContactFormOpen(true);
   };
 
+  const handleDropdownEnter = () => {
+    setIsDropdownOpen(true);
+  };
+
+  const handleDropdownLeave = () => {
+    setIsDropdownOpen(false);
+  };
+
+  const handleDropdownItemHover = () => {
+    playSound(hoverSoundBufferRef.current);
+  };
+
   const getNavbarClass = () => {
     if (!isSpecialPage) {
       return 'navbar';
@@ -114,7 +133,6 @@ const Navbar = () => {
     }
     return 'navbar contact-page';
   };
-
 
   const renderNavContent = (isScrollNav = false) => (
     <div className={`nav ${isScrollNav ? 'scroll-nav' : ''}`}>
@@ -136,7 +154,12 @@ const Navbar = () => {
       </div>
       <div className="nav-items">
         {navItems.map((item) => (
-          <div key={item.name} className="nav-item-wrapper">
+          <div 
+            key={item.name} 
+            className="nav-item-wrapper"
+            onMouseEnter={item.hasDropdown ? handleDropdownEnter : () => {}}
+            onMouseLeave={item.hasDropdown ? handleDropdownLeave : () => {}}
+          >
             <Link to={item.path}>
               <Button
                 variant="nav"
@@ -149,10 +172,19 @@ const Navbar = () => {
                 {item.hasDropdown && <span className="navbar__dropdown-arrow">▼</span>}
               </Button>
             </Link>
-            {item.hasDropdown && hoveredItem === item.name && (
+            {item.hasDropdown && isDropdownOpen && (
               <div className="dropdown-menu">
-                <Link to={`${item.path}/sub-item-1`}>Sub Item 1</Link>
-                <Link to={`${item.path}/sub-item-2`}>Sub Item 2</Link>
+                {item.dropdownItems.map((dropdownItem) => (
+                  <Link 
+                    key={dropdownItem.name} 
+                    to={dropdownItem.path}
+                    className="dropdown-item"
+                    onClick={handleClick}
+                    onMouseEnter={handleDropdownItemHover}
+                  >
+                    {dropdownItem.name}
+                  </Link>
+                ))}
               </div>
             )}
           </div>
