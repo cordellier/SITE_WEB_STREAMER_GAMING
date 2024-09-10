@@ -15,6 +15,7 @@
 @import './components/_Timeline';
 @import './components/ContactForm';
 @import './components/_YouTubePopup';
+@import './components/PageTransition';
 
 
 // Layout
@@ -25,3 +26,4 @@
 // Pages
 @import './pages/App';
 @import './pages/TwitchStream';
+@import './pages/SetupItem';

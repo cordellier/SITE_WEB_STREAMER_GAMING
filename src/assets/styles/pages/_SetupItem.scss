@@ -1,0 +1,67 @@
+.setup-page {
+  background-color: $text-color;
+
+  .blob-container svg {
+    margin-top: 20px;
+    position: absolute;
+    width: 45%;
+    margin-left: 50px;
+  }
+
+  .content-block {
+    background-color: $text-color;
+
+    .text-content {
+      .subtitle {
+        font-size: 14px;
+        margin-bottom: 3rem;
+        text-transform: uppercase;
+        font-family: $subtitle;
+        font-weight: 400;
+        font-style: normal;
+        margin-top: 150px;
+      }
+    }
+  }
+
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-top: 15rem;
+    margin-right: 280px;
+    margin-left: 280px;
+  }
+
+  .equipment-item {
+    background-color: $text-color;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    .equipment-image {
+      width: 60%;
+      height: 60%;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      font-family: $description;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: $background-color;
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: $background-color;
+    }
+  }
+}

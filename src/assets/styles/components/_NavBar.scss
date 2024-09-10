@@ -195,3 +195,18 @@
     }
   }
 }
+
+// Styles spécifiques pour la page Setup
+.navbar.setup-page {
+  .nav-items {
+    .navbar__item {
+      color: $background-color;
+      
+      &.hovered,
+      &:hover {
+        background-color: $primary-color;
+        color: $background-color;
+      }
+    }
+  }
+}

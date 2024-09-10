@@ -21,8 +21,6 @@ const Navbar = () => {
   const hoverSoundBufferRef = useRef(null);
   const clickSoundBufferRef = useRef(null);
 
-  const isSpecialPage = location.pathname === '/about' || location.pathname === '/contact';
-
   const navItems = [
     { name: "CRITIQUES", hasDropdown: false, path: "/reviews" },
     { name: "TOP JEUX", hasDropdown: false, path: "/top-games" },
@@ -125,13 +123,16 @@ const Navbar = () => {
   };
 
   const getNavbarClass = () => {
-    if (!isSpecialPage) {
-      return 'navbar';
+    if (location.pathname.startsWith('/about/setup')) {
+      return 'navbar setup-page';
     }
     if (location.pathname === '/about') {
       return 'navbar about-page';
     }
-    return 'navbar contact-page';
+    if (location.pathname === '/contact') {
+      return 'navbar contact-page';
+    }
+    return 'navbar';
   };
 
   const renderNavContent = (isScrollNav = false) => (
