@@ -1,0 +1,55 @@
+.content-title-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $background-color;
+    margin-top: 150px;
+  
+    .text-content {
+      max-width: 800px;
+      text-align: center;
+    }
+  
+    .subtitle {
+      font-size: 14px;
+      margin-bottom: 3rem;
+      text-transform: uppercase;
+      font-family: $subtitle;
+      font-weight: 400;
+      font-style: normal;
+    }
+  
+    .title {
+      font-size: 118px;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      font-family: $title-article;
+      text-transform: uppercase;
+      line-height: 0.8;
+    }
+  
+    .description {
+      font-size: 18px;
+      color: $background-color;
+      font-family: $description;
+      line-height: 1.2;
+      margin-top: 25px;
+      margin-left: 50px;
+      margin-right: 50px;
+    }
+  }
+  
+  // Ajoutez une media query pour la responsivité
+  @media (max-width: 768px) {
+    .content-title-center {
+      padding: 3rem 1rem;
+  
+      .title {
+        font-size: 36px;
+      }
+  
+      .description {
+        font-size: 16px;
+      }
+    }
+  }

@@ -10,6 +10,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@styles": path.resolve("./src/assets/styles"),
+      "@": path.resolve(__dirname, "src"), // Ajout de l'alias '@'
     },
   },
   css: {
@@ -30,5 +31,9 @@ export default defineConfig({
         secure: false,
       },
     },
+  },
+  assetsInclude: ["**/*.jpg", "**/*.png", "**/*.webp", "**/*.svg"],
+  build: {
+    assetsInlineLimit: 0,
   },
 });

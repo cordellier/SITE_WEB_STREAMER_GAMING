@@ -4,5 +4,5 @@ export const triggerTransition = (callback) => {
   setTimeout(() => {
     document.body.classList.remove("is-changing");
     if (callback) callback();
-  }, 20); // Durée totale de la transition
+  }, 40); // Durée totale de la transition
 };

@@ -16,10 +16,12 @@
 @import './components/ContactForm';
 @import './components/_YouTubePopup';
 @import './components/PageTransition';
+@import './components/GameReview';
+@import './components/NavBar';
+@import './components/_ContentTitleCenter.scss';
 
 
 // Layout
-@import './components/NavBar';
 @import './layout/Header';
 @import './layout/SocialIcons';
 
@@ -27,3 +29,4 @@
 @import './pages/App';
 @import './pages/TwitchStream';
 @import './pages/SetupItem';
+@import './pages/_GameReviewsGrid.scss';

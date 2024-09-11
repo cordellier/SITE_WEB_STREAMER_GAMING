@@ -1,0 +1,175 @@
+.game-review {
+  margin: 0 auto;
+  padding: 20px;
+  color: $background-color;
+  background-color: white;
+  font-family: Arial, sans-serif;
+
+  .game-header {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+
+    h1 {
+      color: $background-color;
+      font-size: 3rem;
+    }
+  }
+
+  .video-section {
+    justify-content: center;
+    text-align: center;
+    margin: -150px 300px 50px 300px;
+
+    iframe {
+      width: 100%;
+      height: 500px;
+      border-radius: 10px;
+    }
+
+    .cta-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: $accent-color;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: darken($accent-color, 10%);
+      }
+    }
+  }
+
+  .game-summary, .pros-cons, .rating, .user-reviews, .conclusion {
+    margin: 0px 300px 20px 300px;
+
+    h2 {
+      color: $error-color;
+      margin-bottom: 15px;
+    }
+  }
+
+  .pros-cons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+
+    .pros, .cons {
+      flex: 1;
+      background-color: $background-color-contentblock;
+      padding: 20px;
+      border-radius: 10px;
+
+      h3 {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        
+        svg {
+          margin-right: 10px;
+        }
+      }
+
+      ul {
+        list-style-type: none;
+        padding-left: 20px;
+
+        li {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    .pros h3 {
+      color: $success-color;
+    }
+
+    .cons h3 {
+      color: $error-color;
+    }
+  }
+
+  .rating {
+    text-align: center;
+
+    .stars {
+      font-size: 2rem;
+      color: $star-color;
+
+      .filled {
+        color: $star-filled-color;
+      }
+    }
+
+    .rating-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: $accent-color;
+    }
+  }
+
+  .conclusion {
+    background-color: $background-color-contentblock;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .review-footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 300px 20px 300px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    button, a {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        margin-right: 10px;
+      }
+    }
+
+    .share-button {
+      background-color: $primary-color;
+      color: white;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+    }
+
+    .purchase-button {
+      background-color: $success-color;
+      color: white;
+
+      &:hover {
+        background-color: darken($success-color, 10%);
+      }
+    }
+  }
+}
